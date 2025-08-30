@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maggie Hai? - Aryabhatta Hostel</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #000000 0%, #1a1a1a 50%, #000000 100%);
+            min-height: 100vh;
+            color: #ffffff;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container {
+            flex: 1;
+            max-width: 1200px;
+            margin: 20px auto;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(255, 0, 0, 0.1);
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 0, 0, 0.1);
+        }
+
+        .header {
+            background: linear-gradient(135deg, #dc2626, #991b1b);
+            color: white;
+            padding: 30px;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 5px 20px rgba(220, 38, 38, 0.3);
+        }
+
+        .header::before {
+            content: '🍜';
+            font-size: 4rem;
+            position: absolute;
+            top: 10px;
+            left: 30px;
+            opacity: 0.3;
+        }
+
+        .header::after {
+            content: '🍜';
+            font-size: 4rem;
+            position: absolute;
+            top: 10px;
+            right: 30px;
+            opacity: 0.3;
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            background: linear-gradient(45deg, #ffffff, #fecaca);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 20px;
+        }
+
+        .join-form-btn {
+            background: linear-gradient(135deg, #ffffff, #f3f4f6);
+            color: #dc2626;
+            border: 2px solid #dc2626;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(220, 38, 38, 0.2);
+        }
+
+        .join-form-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(220, 38, 38, 0.4);
+            background: linear-gradient(135deg, #dc2626, #991b1b);
+            color: white;
+        }
+
+        .content {
+            padding: 30px;
+            flex: 1;
+        }
+
+        .section {
+            margin-bottom: 50px;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #dc2626;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .section-icon {
+            font-size: 2.5rem;
+        }
+
+        .listings-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        .listing-card {
+            background: linear-gradient(145deg, #1f1f1f, #0f0f0f);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            border: 2px solid rgba(220, 38, 38, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .listing-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #dc2626, #ef4444, #dc2626);
+        }
+
+        .listing-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(220, 38, 38, 0.2);
+            border-color: rgba(220, 38, 38, 0.4);
+        }
+
+        .prototype-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            box-shadow: 0 2px 8px rgba(245, 158, 11, 0.3);
+            z-index: 10;
+        }
+
+        .prototype-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.1);
+            border-radius: 15px;
+            pointer-events: none;
+        }
+
+        .seller-name {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #ffffff;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .seller-name::before {
+            content: '👤';
+            margin-right: 8px;
+        }
+
+        .price {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #dc2626;
+            margin-bottom: 20px;
+            text-align: center;
+            background: linear-gradient(135deg, #dc2626, #ef4444);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 20px rgba(220, 38, 38, 0.5);
+        }
+
+        .contact-info {
+            margin-bottom: 20px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            padding: 8px 0;
+            font-size: 0.95rem;
+            color: #e5e5e5;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .contact-item:last-child {
+            border-bottom: none;
+        }
+
+        .contact-icon {
+            margin-right: 12px;
+            font-size: 1.2rem;
+            width: 25px;
+            color: #dc2626;
+        }
+
+        .contact-button {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 8px 0;
+            border-radius: 25px;
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            cursor: pointer;
+            width: 100%;
+            text-align: center;
+        }
+
+        .call-btn {
+            background: linear-gradient(135deg, #dc2626, #991b1b);
+            color: white;
+            border-color: #dc2626;
+        }
+
+        .call-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(220, 38, 38, 0.4);
+            background: linear-gradient(135deg, #ffffff, #f3f4f6);
+            color: #dc2626;
+        }
+
+        .footer {
+            background: linear-gradient(135deg, #0f0f0f, #1a1a1a);
+            color: #9ca3af;
+            text-align: center;
+            padding: 20px 30px;
+            border-top: 2px solid rgba(220, 38, 38, 0.2);
+            margin-top: auto;
+        }
+
+        .footer p {
+            margin: 5px 0;
+            font-size: 0.9rem;
+        }
+
+        .footer .copyright {
+            font-weight: bold;
+            color: #ffffff;
+        }
+
+        @media (max-width: 1024px) {
+            .listings-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2.2rem;
+            }
+            
+            .header::before,
+            .header::after {
+                font-size: 2.5rem;
+                top: 15px;
+            }
+            
+            .listings-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .listing-card {
+                padding: 20px;
+            }
+
+            .container {
+                margin: 10px;
+                border-radius: 15px;
+            }
+
+            .section-title {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Maggie Hai? 🍜</h1>
+            <p class="subtitle">Aryabhatta Hostel • Chitkara University HP</p>
+            <a href="#" class="join-form-btn" onclick="openGoogleForm()">🍜 Join as Seller</a>
+        </div>
+
+        <div class="content">
+            <!-- Normal Maggie Section -->
+            <div class="section">
+                <h2 class="section-title">
+                    <span class="section-icon">🍜</span>
+                    Normal Maggie
+                </h2>
+                <div class="listings-grid" id="normalMaggieGrid"></div>
+            </div>
+
+            <!-- Maggie Masala Section -->
+            <div class="section">
+                <h2 class="section-title">
+                    <span class="section-icon">🌶️</span>
+                    Maggie Masala
+                </h2>
+                <div class="listings-grid" id="maggieMasalaGrid"></div>
+            </div>
+
+            <!-- Egg Section -->
+            <div class="section">
+                <h2 class="section-title">
+                    <span class="section-icon">🥚</span>
+                    Egg
+                </h2>
+                <div class="listings-grid" id="eggGrid"></div>
+            </div>
+
+            <!-- Pan Available Section -->
+            <div class="section">
+                <h2 class="section-title">
+                    <span class="section-icon">🍳</span>
+                    Pan Available for Cooking
+                </h2>
+                <div class="listings-grid" id="panAvailableGrid"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p class="copyright">© 2025 Maggie Hai? - Aryabhatta Hostel Marketplace</p>
+        <p>Chitkara University Himachal Pradesh</p>
+        <p>Made with ❤️ for hungry students</p>
+    </div>
+
+    <script>
+        // Sample sellers data
+        const sellers = [
+            { name: "Rahul Sharma", phone: "+91 98765 43210", room: "A-205", price: 15 },
+            { name: "Priya Singh", phone: "+91 87654 32109", room: "B-112", price: 20 },
+            { name: "Amit Kumar", phone: "+91 76543 21098", room: "C-303", price: 25 },
+            { name: "Sneha Gupta", phone: "+91 65432 10987", room: "D-104", price: 15 },
+            { name: "Vikash Singh", phone: "+91 54321 09876", room: "A-121", price: 20 },
+            { name: "Pooja Sharma", phone: "+91 43210 98765", room: "C-215", price: 25 },
+            { name: "Arjun Patel", phone: "+91 32109 87654", room: "B-208", price: 15 },
+            { name: "Kavya Reddy", phone: "+91 21098 76543", room: "D-315", price: 20 },
+            { name: "Rohit Agarwal", phone: "+91 10987 65432", room: "A-118", price: 25 }
+        ];
+
+        function createSellerCard(seller, price, itemType) {
+            return `
+                <div class="listing-card">
+                    <div class="prototype-badge">Prototype</div>
+                    <div class="prototype-overlay"></div>
+                    
+                    <div class="seller-name">${seller.name}</div>
+                    <div class="price">₹${price}</div>
+                    
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <span class="contact-icon">🏠</span>
+                            Room: ${seller.room}
+                        </div>
+                        <div class="contact-item">
+                            <span class="contact-icon">📱</span>
+                            ${seller.phone}
+                        </div>
+                    </div>
+                    
+                    <div class="contact-buttons">
+                        <a href="tel:${seller.phone}" class="contact-button call-btn">
+                            📞 Call Now
+                        </a>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderSections() {
+            // Normal Maggie Section (₹15)
+            const normalMaggieGrid = document.getElementById('normalMaggieGrid');
+            normalMaggieGrid.innerHTML = sellers.slice(0, 9).map(seller => 
+                createSellerCard(seller, 15, 'Normal Maggie')
+            ).join('');
+
+            // Maggie Masala Section (₹20)
+            const maggieMasalaGrid = document.getElementById('maggieMasalaGrid');
+            maggieMasalaGrid.innerHTML = sellers.slice(0, 9).map(seller => 
+                createSellerCard(seller, 20, 'Maggie Masala')
+            ).join('');
+
+            // Egg Section (₹25)
+            const eggGrid = document.getElementById('eggGrid');
+            eggGrid.innerHTML = sellers.slice(0, 9).map(seller => 
+                createSellerCard(seller, 25, 'Egg')
+            ).join('');
+
+            // Pan Available Section (₹30 - premium for cooking service)
+            const panAvailableGrid = document.getElementById('panAvailableGrid');
+            panAvailableGrid.innerHTML = sellers.slice(0, 9).map(seller => 
+                createSellerCard(seller, 30, 'Cooking Service')
+            ).join('');
+        }
+
+        function openGoogleForm() {
+            const googleFormUrl = "https://docs.google.com/forms/d/e/1FAIpQLSexAyIWiNJTsPUsIIUh8JlWLcXWUsrLbeokgO7qCvB6G01_3A/viewform";
+            window.open(googleFormUrl, '_blank');
+        }
+
+        // Initial render
+        renderSections();
+    </script>
+</body>
+</html>
